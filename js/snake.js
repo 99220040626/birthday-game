@@ -9,9 +9,9 @@ const CELL  = 20;
 let COLS  = canvas.width  / CELL; 
 let ROWS  = canvas.height / CELL; 
 
-const FOOD_EMOJIS = ['🎂','🍭','🍬','🧁','🍰'];
+// Super bright neon colors for the eating ball
+const NEON_COLORS = ['#FF00FF', '#00FFFF', '#FFD700', '#FF4500', '#7DF9FF'];
 
-// Added currentSpeed variable
 let snake, dx, dy, food, score, length, bestScore, gameLoop, paused, gameOver, currentSpeed;
 let audioCtx = null;
 
@@ -54,7 +54,7 @@ function playDie() {
 }
 
 function startGame() {
-  clearTimeout(gameLoop); // Changed from clearInterval
+  clearTimeout(gameLoop); 
   
   const startX = Math.floor(COLS / 2);
   const startY = Math.floor(ROWS / 2);
@@ -72,14 +72,13 @@ function startGame() {
   gameOver = false;
   bestScore = bestScore || 0;
   
-  // Start slower! 200ms between moves (was 130)
-  currentSpeed = 200; 
+  // Start SUPER slow (300ms)
+  currentSpeed = 300; 
   
   document.getElementById('pause-btn').textContent = '⏸ Pause';
   spawnFood();
   updateUI();
   
-  // Kick off the new dynamic game loop
   gameLoop = setTimeout(tick, currentSpeed);
 }
 
@@ -89,7 +88,7 @@ function spawnFood() {
     pos = {
       x: Math.floor(Math.random() * COLS),
       y: Math.floor(Math.random() * ROWS),
-      emoji: FOOD_EMOJIS[Math.floor(Math.random() * FOOD_EMOJIS.length)]
+      color: NEON_COLORS[Math.floor(Math.random() * NEON_COLORS.length)]
     };
   } while (snake.some(s => s.x === pos.x && s.y === pos.y));
   food = pos;
@@ -115,8 +114,8 @@ function tick() {
     score  += 10;
     length += 1;
     
-    // INCREASE SPEED! Drop the timeout by 5ms, down to a super-fast minimum of 60ms
-    currentSpeed = Math.max(60, currentSpeed - 5);
+    // INCREASE SPEED! Drop the timeout by 10ms, down to a fast minimum of 70ms
+    currentSpeed = Math.max(70, currentSpeed - 10);
     
     playEat();
     spawnFood();
@@ -126,8 +125,6 @@ function tick() {
   }
 
   draw();
-  
-  // Schedule the next frame using our dynamic speed
   gameLoop = setTimeout(tick, currentSpeed);
 }
 
@@ -144,18 +141,21 @@ function draw() {
     }
   }
 
-  // Draw food (Made slightly larger to see easier)
-  ctx.font = CELL + 'px serif';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText(food.emoji, food.x * CELL + CELL/2, food.y * CELL + CELL/2);
+  // Draw VERY colorful glowing ball
+  ctx.shadowBlur = 20; // Adds a glowing effect
+  ctx.shadowColor = food.color;
+  ctx.fillStyle = food.color;
+  ctx.beginPath();
+  ctx.arc(food.x * CELL + CELL/2, food.y * CELL + CELL/2, CELL/2 - 3, 0, Math.PI*2);
+  ctx.fill();
+  ctx.shadowBlur = 0; // Turn off glow so the snake doesn't blur
 
   // Draw snake (Brighter Neon Colors!)
   snake.forEach((seg, i) => {
     const isHead = i === 0;
     const x = seg.x * CELL;
     const y = seg.y * CELL;
-    const pad = 1; // reduced padding to make snake look thicker
+    const pad = 1; 
     const r = isHead ? 6 : 4;
 
     const grad = ctx.createRadialGradient(
@@ -181,7 +181,7 @@ function draw() {
       ctx.fillStyle = '#fff';
       let ex1 = 5, ey1 = 5, ex2 = CELL-8, ey2 = 5;
       if (dy !== 0) { ex1 = 4; ex2 = CELL-7; ey1 = dy > 0 ? CELL-8 : 5; ey2 = ey1; }
-      ctx.beginPath(); ctx.arc(x + ex1, y + ey1, 3, 0, Math.PI*2); ctx.fill(); // slightly bigger eyes
+      ctx.beginPath(); ctx.arc(x + ex1, y + ey1, 3, 0, Math.PI*2); ctx.fill();
       ctx.beginPath(); ctx.arc(x + ex2, y + ey2, 3, 0, Math.PI*2); ctx.fill();
       ctx.fillStyle = '#000';
       ctx.beginPath(); ctx.arc(x + ex1 + 0.5, y + ey1 + 0.5, 1.5, 0, Math.PI*2); ctx.fill();
@@ -220,7 +220,7 @@ function roundRect(ctx, x, y, w, h, r) {
 function endGame() {
   gameOver = true;
   playDie();
-  clearTimeout(gameLoop); // Changed from clearInterval
+  clearTimeout(gameLoop);
   if (score > bestScore) bestScore = score;
   updateUI();
 
@@ -249,7 +249,7 @@ function togglePause() {
   document.getElementById('pause-btn').textContent = paused ? '▶ Resume' : '⏸ Pause';
   if (!paused) {
     draw();
-    tick(); // Instantly resume the loop!
+    tick();
   }
 }
 
