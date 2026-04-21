@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🐍 Snake Game! - Kushal's Birthday</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Fredoka+One&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/games.css"/>
+  <style>
+    #snake-canvas {
+      border: 3px solid rgba(255,255,255,0.2);
+      border-radius: 16px;
+      background: rgba(0,0,50,0.7);
+      display: block;
+      margin: 0 auto;
+      box-shadow: 0 0 30px rgba(107,203,119,0.3);
+    }
+    .controls-hint {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+    /* Mobile D-Pad */
+    .dpad {
+      display: grid;
+      grid-template-columns: repeat(3, 50px);
+      grid-template-rows: repeat(3, 50px);
+      gap: 4px;
+      margin: 0.8rem auto;
+      width: fit-content;
+    }
+    .dpad-btn {
+      font-size: 1.4rem;
+      background: rgba(255,255,255,0.15);
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.1s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .dpad-btn:active { background: var(--green); transform: scale(0.9); }
+    .dpad-center { grid-column: 2; grid-row: 2; background: transparent; border: none; }
+  </style>
+</head>
+<body>
+  <a href="../index.html" class="back-btn">🏠 Home</a>
+
+  <div class="game-header">
+    <h1 class="game-title">🐍 Snake Game!</h1>
+    <p class="game-subtitle">Eat the cakes and grow bigger! 🎂</p>
+  </div>
+
+  <div class="score-bar">
+    <div class="score-item">
+      <div class="score-label">Score</div>
+      <div class="score-value" id="score">0</div>
+    </div>
+    <div class="score-item">
+      <div class="score-label">Length</div>
+      <div class="score-value" id="length">3</div>
+    </div>
+    <div class="score-item">
+      <div class="score-label">Best</div>
+      <div class="score-value" id="best">0</div>
+    </div>
+  </div>
+
+  <canvas id="snake-canvas" width="400" height="400"></canvas>
+
+  <p class="controls-hint">⌨️ Arrow keys or WASD to move &nbsp;|&nbsp; Space to pause</p>
+
+  <!-- Mobile D-Pad -->
+  <div class="dpad">
+    <div></div>
+    <button class="dpad-btn" id="btn-up" onclick="setDir(0,-1)">⬆️</button>
+    <div></div>
+    <button class="dpad-btn" id="btn-left" onclick="setDir(-1,0)">⬅️</button>
+    <div class="dpad-center"></div>
+    <button class="dpad-btn" id="btn-right" onclick="setDir(1,0)">➡️</button>
+    <div></div>
+    <button class="dpad-btn" id="btn-down" onclick="setDir(0,1)">⬇️</button>
+    <div></div>
+  </div>
+
+  <div style="text-align:center;">
+    <button class="btn btn-success" onclick="startGame()">🔄 New Game</button>
+    <button class="btn btn-primary" id="pause-btn" onclick="togglePause()">⏸ Pause</button>
+  </div>
+
+  <script src="../js/snake.js"></script>
+</body>
+</html>

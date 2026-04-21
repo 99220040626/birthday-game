@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎉 Happy Birthday Kushal! 🎂</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts: Bubblegum Sans + Fredoka One -->
+  <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- 🎊 Confetti container -->
+  <div id="confetti-container"></div>
+
+  <!-- 🎈 Floating balloons background -->
+  <div id="balloons-bg"></div>
+
+  <!-- ⭐ Stars background -->
+  <div id="stars-bg"></div>
+
+  <!-- 🏠 HEADER -->
+  <header class="main-header">
+    <div class="birthday-crown">👑</div>
+    <h1 class="main-title">
+      <span class="wave-text">🎉 Happy Birthday 🎉</span><br/>
+      <span class="name-text">Manyam Ram Sai Kushal Reddy</span>
+    </h1>
+    <div class="cake-animation">🎂</div>
+    <p class="subtitle">You're the BEST! Let's play some games! 🕹️✨</p>
+
+    <!-- 🔊 Music controls -->
+    <div class="music-controls">
+      <button id="music-btn" class="music-btn" onclick="toggleMusic()">🎵 Play Music</button>
+      <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.5" oninput="changeVolume(this.value)" />
+      <span>🔊</span>
+    </div>
+  </header>
+
+  <!-- 🎮 GAMES SECTION -->
+  <section class="games-section">
+    <h2 class="section-title">🕹️ Choose Your Game! 🕹️</h2>
+    <div class="games-grid">
+
+      <a href="games/balloon.html" class="game-card balloon-card">
+        <div class="game-emoji">🎈</div>
+        <h3>Balloon Pop!</h3>
+        <p>Pop all the balloons!</p>
+        <span class="play-btn">▶ PLAY</span>
+      </a>
+
+      <a href="games/target.html" class="game-card target-card">
+        <div class="game-emoji">🎯</div>
+        <h3>Target Hit!</h3>
+        <p>Hit the moving targets!</p>
+        <span class="play-btn">▶ PLAY</span>
+      </a>
+
+      <a href="games/memory.html" class="game-card memory-card">
+        <div class="game-emoji">🧠</div>
+        <h3>Memory Match!</h3>
+        <p>Match the cards!</p>
+        <span class="play-btn">▶ PLAY</span>
+      </a>
+
+      <a href="games/snake.html" class="game-card snake-card">
+        <div class="game-emoji">🐍</div>
+        <h3>Snake Game!</h3>
+        <p>Eat cakes & grow!</p>
+        <span class="play-btn">▶ PLAY</span>
+      </a>
+
+      <a href="games/runner.html" class="game-card runner-card">
+        <div class="game-emoji">🏃</div>
+        <h3>Birthday Runner!</h3>
+        <p>Jump over obstacles!</p>
+        <span class="play-btn">▶ PLAY</span>
+      </a>
+
+      <a href="games/gift.html" class="game-card gift-card">
+        <div class="game-emoji">🎁</div>
+        <h3>Gift Surprise!</h3>
+        <p>Open your gifts!</p>
+        <span class="play-btn">▶ PLAY</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- 💌 WISHES SECTION -->
+  <section class="wishes-section">
+    <h2 class="section-title">💌 Birthday Wishes for Kushal! 💌</h2>
+    <div class="wishes-grid">
+      <div class="wish-card">🌟 May all your dreams come true!</div>
+      <div class="wish-card">🎂 Have the most amazing birthday!</div>
+      <div class="wish-card">🚀 You're going to do great things!</div>
+      <div class="wish-card">🦸 You're a superstar, Kushal!</div>
+      <div class="wish-card">🎉 Wishing you tons of fun today!</div>
+      <div class="wish-card">💪 Keep being awesome every day!</div>
+    </div>
+  </section>
+
+  <!-- 🎆 FIREWORKS SECTION -->
+  <section class="fireworks-section">
+    <h2 class="section-title">🎆 Celebrate! 🎆</h2>
+    <div id="fireworks-display"></div>
+    <button class="fireworks-btn" onclick="launchFireworks()">🎆 Launch Fireworks!</button>
+    <br/><br/>
+    <!-- ⬇️ Download Button -->
+    <button class="download-btn" onclick="showDownloadInfo()">⬇️ Download My Birthday Game 🎁</button>
+    <div id="download-info" class="download-info" style="display:none;">
+      <h3>🎁 How to Download & Run!</h3>
+      <ol>
+        <li>📁 Copy the entire <strong>birthday-game</strong> folder to your computer</li>
+        <li>💻 Open <strong>VS Code</strong></li>
+        <li>📂 Go to <strong>File → Open Folder</strong> → select <strong>birthday-game</strong></li>
+        <li>🔌 Install <strong>Live Server</strong> extension (search in Extensions panel)</li>
+        <li>🖱️ Right-click <strong>index.html</strong> → click <strong>"Open with Live Server"</strong></li>
+        <li>🎉 Enjoy the Birthday Game Party!</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 🦶 FOOTER -->
+  <footer class="main-footer">
+    <p>🎂 Made with ❤️ for <strong>Manyam Ram Sai Kushal Reddy</strong> 🎂</p>
+    <p>🎉 Happy Birthday! Have the BEST day ever! 🎈🎈🎈</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

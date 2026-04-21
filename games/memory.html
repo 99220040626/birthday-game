@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🧠 Memory Match! - Kushal's Birthday</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Fredoka+One&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/games.css"/>
+  <style>
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      padding: 1rem;
+      width: min(520px, 90vw);
+      margin: 0 auto;
+    }
+    .mem-card {
+      aspect-ratio: 1;
+      cursor: pointer;
+      perspective: 600px;
+      position: relative;
+    }
+    .mem-inner {
+      width: 100%; height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+    .mem-card.flipped .mem-inner { transform: rotateY(180deg); }
+    .mem-card.matched .mem-inner { transform: rotateY(180deg); }
+    .mem-front, .mem-back {
+      position: absolute; inset: 0;
+      backface-visibility: hidden;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      border: 3px solid rgba(255,255,255,0.2);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    .mem-back {
+      background: linear-gradient(135deg, #302b63, #24243e);
+      font-size: 2rem;
+    }
+    .mem-back::after { content: '🎂'; font-size: 2rem; }
+    .mem-front {
+      transform: rotateY(180deg);
+      background: linear-gradient(135deg, rgba(255,107,157,0.3), rgba(77,150,255,0.3));
+    }
+    .mem-card.matched .mem-front {
+      background: linear-gradient(135deg, rgba(107,203,119,0.5), rgba(77,150,255,0.5));
+      border-color: var(--green);
+      animation: matchPulse 0.4s ease;
+    }
+    @keyframes matchPulse {
+      0%, 100% { transform: rotateY(180deg) scale(1); }
+      50%       { transform: rotateY(180deg) scale(1.15); }
+    }
+    .mem-card.wrong .mem-inner { animation: wrongShake 0.4s ease; }
+    @keyframes wrongShake {
+      0%, 100% { transform: rotateY(180deg) translateX(0); }
+      25%       { transform: rotateY(180deg) translateX(-6px); }
+      75%       { transform: rotateY(180deg) translateX(6px); }
+    }
+  </style>
+</head>
+<body>
+  <a href="../index.html" class="back-btn">🏠 Home</a>
+
+  <div class="game-header">
+    <h1 class="game-title">🧠 Memory Match!</h1>
+    <p class="game-subtitle">Find all the matching pairs! 🎴</p>
+  </div>
+
+  <div class="score-bar">
+    <div class="score-item">
+      <div class="score-label">Moves</div>
+      <div class="score-value" id="moves">0</div>
+    </div>
+    <div class="score-item">
+      <div class="score-label">Matched</div>
+      <div class="score-value" id="matched">0 / 8</div>
+    </div>
+    <div class="score-item">
+      <div class="score-label">Score</div>
+      <div class="score-value" id="score">0</div>
+    </div>
+  </div>
+
+  <div id="memory-grid" class="memory-grid"></div>
+
+  <div style="text-align:center; margin-top:1rem;">
+    <button class="btn btn-success" onclick="initGame()">🔄 New Game</button>
+  </div>
+
+  <!-- Win overlay (placed outside grid) -->
+  <div id="win-overlay" class="overlay" style="display:none; position:fixed; inset:0; border-radius:0; z-index:200;">
+    <div class="overlay-emoji">🏆</div>
+    <div class="overlay-title">You Win!</div>
+    <div id="win-msg" class="overlay-msg"></div>
+    <button class="btn btn-primary" onclick="initGame(); document.getElementById('win-overlay').style.display='none'">🔄 Play Again!</button>
+    <a href="../index.html" class="btn btn-success" style="text-decoration:none; margin:0.5rem;">🏠 Home</a>
+  </div>
+
+  <script src="../js/memory.js"></script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎯 Target Hit! - Kushal's Birthday</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Fredoka+One&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/games.css"/>
+  <style>
+    #target-arena {
+      width: min(700px, 95vw);
+      height: 460px;
+      position: relative;
+      cursor: crosshair;
+      background: radial-gradient(circle at center, rgba(77,150,255,0.1), transparent);
+    }
+    .target {
+      position: absolute;
+      font-size: 3.5rem;
+      cursor: pointer;
+      user-select: none;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+      transition: transform 0.1s;
+    }
+    .target:active { transform: scale(0.8); }
+    .hit-flash {
+      position: absolute;
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.8rem;
+      pointer-events: none;
+      animation: hitAnim 0.7s ease-out forwards;
+      z-index: 20;
+    }
+    @keyframes hitAnim {
+      0%   { transform: scale(0.5); opacity: 1; }
+      60%  { transform: scale(1.3); opacity: 1; }
+      100% { transform: scale(1) translateY(-40px); opacity: 0; }
+    }
+    #countdown {
+      font-family: 'Fredoka One', cursive;
+      font-size: 3rem;
+      color: var(--yellow);
+      text-align: center;
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      text-shadow: 3px 3px 0 var(--orange);
+      z-index: 10;
+      animation: countdownPulse 1s ease-in-out;
+    }
+    @keyframes countdownPulse {
+      0%   { transform: translateY(-50%) scale(0.5); opacity: 0; }
+      50%  { transform: translateY(-50%) scale(1.4); opacity: 1; }
+      100% { transform: translateY(-50%) scale(1); opacity: 1; }
+    }
+    .timer-bar-wrap {
+      width: min(700px, 95vw);
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      height: 16px;
+      margin: 0.5rem auto;
+      border: 2px solid rgba(255,255,255,0.2);
+      overflow: hidden;
+    }
+    #timer-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--green), var(--yellow), var(--red));
+      border-radius: 20px;
+      transition: width 0.1s linear;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <a href="../index.html" class="back-btn">🏠 Home</a>
+
+  <div class="game-header">
+    <h1 class="game-title">🎯 Target Hit!</h1>
+    <p class="game-subtitle">Hit as many targets as you can! ⏱️ 30 seconds</p>
+  </div>
+
+  <div class="score-bar">
+    <div class="score-item">
+      <div class="score-label">Score</div>
+      <div class="score-value" id="score">0</div>
+    </div>
+    <div class="score-item">
+      <div class="score-label">Hits</div>
+      <div class="score-value" id="hits">0</div>
+    </div>
+    <div class="score-item">
+      <div class="score-label">Time</div>
+      <div class="score-value" id="time">30</div>
+    </div>
+  </div>
+
+  <div class="timer-bar-wrap">
+    <div id="timer-bar"></div>
+  </div>
+
+  <div class="game-container" id="target-arena">
+    <div class="overlay" id="start-overlay">
+      <div class="overlay-emoji">🎯</div>
+      <div class="overlay-title">Target Hit!</div>
+      <div class="overlay-msg">Click targets as fast as you can!<br/>You have 30 seconds! 🕒</div>
+      <button class="btn btn-primary" onclick="startGame()">▶ START!</button>
+    </div>
+  </div>
+
+  <div style="text-align:center; margin-top:0.5rem;">
+    <button class="btn btn-success" onclick="startGame()">🔄 New Game</button>
+  </div>
+
+  <script src="../js/target.js"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🏃 Birthday Runner! - Kushal's Birthday</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Fredoka+One&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/games.css"/>
+  <style>
+    #runner-canvas {
+      border: 3px solid rgba(255,255,255,0.2);
+      border-radius: 16px;
+      background: linear-gradient(180deg, #1a1a3e 0%, #0d2b0d 80%, #1a0a00 100%);
+      display: block;
+      margin: 0 auto;
+      cursor: pointer;
+    }
+    .controls-hint {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+    .jump-btn {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.4rem;
+      padding: 1rem 3rem;
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(77,150,255,0.4);
+      transition: all 0.1s;
+      margin: 0.5rem;
+      display: block;
+      margin: 0.5rem auto;
+    }
+    .jump-btn:active { transform: scale(0.95); }
+  </style>
+</head>
+<body>
+  <a href="../index.html" class="back-btn">🏠 Home</a>
+
+  <div class="game-header">
+    <h1 class="game-title">🏃 Birthday Runner!</h1>
+    <p class="game-subtitle">Jump over obstacles! 🎈</p>
+  </div>
+
+  <div class="score-bar">
+    <div class="score-item">
+      <div class="score-label">Score</div>
+      <div class="score-value" id="score">0</div>
+    </div>
+    <div class="score-item">
+      <div class="score-label">Speed</div>
+      <div class="score-value" id="speed">1</div>
+    </div>
+    <div class="score-item">
+      <div class="score-label">Best</div>
+      <div class="score-value" id="best">0</div>
+    </div>
+  </div>
+
+  <canvas id="runner-canvas" width="600" height="200"></canvas>
+
+  <p class="controls-hint">⬆️ Arrow Up / Space / Tap to Jump 🦘</p>
+  <button class="jump-btn" id="jump-btn" onclick="jump()">🦘 JUMP!</button>
+
+  <div style="text-align:center; margin-top:0.5rem;">
+    <button class="btn btn-success" onclick="startGame()">🔄 New Game</button>
+  </div>
+
+  <script src="../js/runner.js"></script>
+</body>
+</html>
