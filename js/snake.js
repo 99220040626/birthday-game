@@ -6,8 +6,9 @@ const canvas = document.getElementById('snake-canvas');
 const ctx    = canvas.getContext('2d');
 
 const CELL  = 20;
-const COLS  = canvas.width  / CELL; // 20
-const ROWS  = canvas.height / CELL; // 20
+// Changed from const to let so they can update when the screen resizes!
+let COLS  = canvas.width  / CELL; 
+let ROWS  = canvas.height / CELL; 
 
 const FOOD_EMOJIS = ['🎂','🍭','🍬','🧁','🍰'];
 
@@ -17,6 +18,7 @@ let audioCtx = null;
 function initAudio() {
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 }
+
 function playEat() {
   try {
     initAudio();
@@ -32,6 +34,7 @@ function playEat() {
     osc.start(); osc.stop(audioCtx.currentTime + 0.2);
   } catch(e) {}
 }
+
 function playDie() {
   try {
     initAudio();
@@ -52,7 +55,18 @@ function playDie() {
 
 function startGame() {
   clearInterval(gameLoop);
-  snake    = [{x: 10, y: 10}, {x: 9, y: 10}, {x: 8, y: 10}];
+  
+  // Calculate the center of the grid dynamically
+  const startX = Math.floor(COLS / 2);
+  const startY = Math.floor(ROWS / 2);
+  
+  // Use dynamic coordinates so the snake is always on screen
+  snake = [
+    {x: startX, y: startY}, 
+    {x: startX - 1, y: startY}, 
+    {x: startX - 2, y: startY}
+  ];
+  
   dx = 1; dy = 0;
   score    = 0;
   length   = 3;
@@ -252,6 +266,10 @@ function resizeCanvas() {
   const rounded = Math.floor(size / CELL) * CELL;
   canvas.width  = rounded;
   canvas.height = rounded;
+  
+  // Update the game boundaries when the screen shrinks!
+  COLS = canvas.width / CELL;
+  ROWS = canvas.height / CELL;
 }
 
 window.addEventListener('load', () => {
